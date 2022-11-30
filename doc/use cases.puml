@@ -1,0 +1,15 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+left to right direction
+
+:Client app: as client
+Account -> (Create session)
+Account --> (Delete session by token)
+Account --> (Refresh session)
+
+client --> (Validate session)
+client -> (Delete session by account)
+
+System --> (Auto expire session)
+
+@enduml

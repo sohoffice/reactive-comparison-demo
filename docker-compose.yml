@@ -1,0 +1,37 @@
+version: "3.8"
+services:
+  mdb:
+    container_name: reactive-demo-mdb
+    image: "mongo:5"
+    ports:
+      - "27017:27017"
+    volumes:
+      - reactive-demo-mongo-data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: mongo
+
+  pdb:
+    container_name: reactive-demo-pdb
+    image: "postgres:13.6-alpine"
+    ports:
+      - "5432:5432"
+    volumes:
+      - reactive-demo-pg-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: postgres
+
+  re:
+    container_name: reactive-demo-redis
+    image: "redis:7-alpine"
+    command: --appendonly yes
+    ports:
+      - 6379:6379
+    volumes:
+      - "reactive-demo-redis-data:/data"
+
+# end of cloud-service
+volumes:
+  reactive-demo-mongo-data:
+  reactive-demo-pg-data:
+  reactive-demo-redis-data:
