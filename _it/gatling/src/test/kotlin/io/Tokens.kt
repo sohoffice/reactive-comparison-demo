@@ -1,7 +1,6 @@
 package io
 
 import io.gatling.javaapi.core.Session
-import java.time.Instant
 import java.util.*
 
 data class IdentityModel(
@@ -10,10 +9,10 @@ data class IdentityModel(
 
 fun createSessionRequestTemplate(): (Session) -> String {
   return { session ->
-    val identity = session.get<IdentityModel>("identity")
+    val identityId = session.get<UUID>("identityId")
     """{
       |  "identity": {
-      |    "id": "${identity.id}"
+      |    "id": "${identityId}"
       |  },
       |  "createRefreshToken": true
       |}""".trimMargin()

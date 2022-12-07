@@ -4,14 +4,19 @@ import io.IdentityModel
 import java.security.SecureRandom
 import java.util.UUID
 
-fun identityFeeders(size: Int): Iterator<Map<String, IdentityModel>> {
-  val pool = (0..size).map {
-    val id = UUID.randomUUID()
-    mapOf("identity" to IdentityModel(id))
+fun identityPooledFeeders(poolSize: Int): Iterator<Map<String, UUID>> {
+  val pool = (0..poolSize).map {
+    mapOf("identityId" to UUID.randomUUID())
   }.toList()
   val random = SecureRandom()
 
   return generateSequence {
-    pool[random.nextInt(size)]
+    pool[random.nextInt(poolSize)]
+  }.iterator()
+}
+
+fun identityRandomFeeder(): Iterator<Map<String, UUID>> {
+  return generateSequence {
+    mapOf("identityId" to UUID.randomUUID())
   }.iterator()
 }

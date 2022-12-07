@@ -11,6 +11,4 @@ abstract class BaseSimulation : Simulation() {
     .baseUrl(Configuration.host)
     .contentTypeHeader("application/json")
 
-  val gson = Gson()
-
 }
