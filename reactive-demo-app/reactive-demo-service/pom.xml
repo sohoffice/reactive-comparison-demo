@@ -70,6 +70,10 @@
           <skip>false</skip>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.jetbrains.kotlin</groupId>
+        <artifactId>kotlin-maven-plugin</artifactId>
+      </plugin>
     </plugins>
   </build>
 </project>

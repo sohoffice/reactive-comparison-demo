@@ -1,12 +1,13 @@
 package com.linksys.demo.reactivedemo.service
 
 import com.linksys.demo.reactivedemo.model.CreateSessionRequest
-import com.linksys.demo.reactivedemo.model.TokenCreatingModel
 import com.linksys.demo.reactivedemo.model.SessionModel
 import com.linksys.demo.reactivedemo.model.Site
+import com.linksys.demo.reactivedemo.model.TokenCreatingModel
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import reactor.core.publisher.Mono
+import java.time.Duration
 import java.util.*
 
 @Service
@@ -21,6 +22,7 @@ class SessionUpdateService(
     val provider = tokenProviderFactory.forSession(factoryCtx)
     val providerCtx = TokenProviderContext(site, input)
     val sessionMono = provider.provide(providerCtx)
+      .delayElement(Duration.ofSeconds(5))
       .flatMap {
         sessionSaveService.saveSession(TokenCreatingModel(site, input.identity, it))
       }

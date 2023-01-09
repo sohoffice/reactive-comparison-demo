@@ -6,6 +6,7 @@ import com.linksys.demo.coroutinedemo.model.SessionModel
 import com.linksys.demo.coroutinedemo.model.Site
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -23,6 +24,7 @@ class SessionUpdateService(
     val session = async {
       val provider = tokenProviderFactory.forSession(factoryCtx)
       val t = provider.provide(providerCtx)
+      delay(5000L)
       sessionSaveService.saveSession(CreateTokenModel(site, input.identity, t))
     }
     val refresh = if (input.createRefreshToken) {

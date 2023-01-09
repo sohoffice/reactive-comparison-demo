@@ -13,11 +13,11 @@ class BasicSimulation : BaseSimulation() {
 
   private val logger = LoggerFactory.getLogger(BasicSimulation::class.java)
 
-  val createToken = http("POST /sessions")
+  val createToken = http("SLOW")
     .post("/sessions")
     .body(StringBody(createSessionRequestTemplate()))
 
-  val getToken = http("GET  /sessions/{token}")
+  val getToken = http("FAST")
     .get("/sessions/#{token}")
 
   //  val feeder = identityPooledFeeders(10)
@@ -31,12 +31,13 @@ class BasicSimulation : BaseSimulation() {
           status().shouldBe(200),
           jmesPath("sessionToken.token").saveAs("token")
         )
-      ).repeat(3)
-        .on(exec(
-          getToken.check(
-            status().shouldBe(200)
-          )
-        ))
+      )
+//        .repeat(3)
+//        .on(exec(
+//          getToken.check(
+//            status().shouldBe(200)
+//          )
+//        ))
     )
 //      exec(
 //        createToken.check(

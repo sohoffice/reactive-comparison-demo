@@ -20,6 +20,7 @@ class SessionUpdateService(
     val providerCtx = TokenProviderContext(site, input)
 
     val session = provider.provide(providerCtx)
+    Thread.sleep(5000)
     val refresh = if (input.createRefreshToken) {
       tokenProviderFactory.forRefresh(factoryCtx)
         .provide(providerCtx)
