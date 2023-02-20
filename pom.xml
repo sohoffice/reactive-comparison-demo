@@ -15,6 +15,7 @@
   </properties>
 
   <modules>
+    <module>async-demo-app</module>
     <module>coroutine-demo-app</module>
     <module>imperative-demo-app</module>
     <module>reactive-demo-app</module>

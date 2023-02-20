@@ -1,0 +1,45 @@
+#application.yml
+spring:
+  r2dbc:
+    url: r2dbc:oracle:thin://localhost:1521:XEPDB1
+    username: hnbu_cs
+    password: hnbu_cs
+  data.mongodb:
+#    uri: mongodb://tokens:tokens@localhost:27017/tokens?minPoolSize=100&maxPoolSize=120
+    host: localhost
+    port: 27017
+    database: tokens
+    username: tokens
+    password: tokens
+    uuid-representation: STANDARD
+  jackson:
+    default-property-inclusion: non_null
+
+  task:
+    execution:
+      pool:
+        core-size: 60
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+logging:
+  pattern:
+    console: "[%clr(%X{traceId}){magenta}][%X{identity}] %clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%5p) [%15t] %clr(%logger{32}.%M){cyan} %clr(:){faint} %msg%n%ex{20}"
+    file: "[%X{traceId}][%X{identity}] %d{yyyy-MM-dd HH:mm:ss.SSS} %5p %-32.32logger.%M : %msg%n%ex{20}"
+  level:
+    root: INFO
+    # The below will log http request/response headers
+    # org.springframework.web.server.adapter: TRACE
+    # The below will log object detail to be encoded to JSON, not exactly pretty
+    # org.springframework.http.codec.json: TRACE
+    org.springframework.scheduling: DEBUG
+    com.linksys: DEBUG
+    linksys: DEBUG
+    request.detail: DEBUG
+
+app:
+  persistence: mongo
